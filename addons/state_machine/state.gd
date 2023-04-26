@@ -6,17 +6,79 @@ signal on_enter
 signal on_exit
 signal on_update(delta:float)
 
-@export var allow_reset:bool = false
+# set to true if the state can be reactivated even if it is already active. So enter will get called again
+@export var allow_reenter:bool = false
 
+######### Auto show hide node paths
+# TODO: actually export an array of nodes and not paths, but this is buggy ATM but should be fixed in godot 4.1
+# a list of nodes that get called .show() on enter and .hide() on exit 
+@export var nodes_sync:Array[NodePath] = []
+
+# a list of nodes that get called .show() on enter
+@export var nodes_show:Array[NodePath] = []
+
+# a list of nodes that get called .hide() on enter
+@export var nodes_hide:Array[NodePath] = []
+
+func _prefix():
+	return "[State: %s] " % self.name
+
+# age of this state
 var age:float = 0
 
+# called when the state manager wants to enter this state
+func request_enter():
+	confirm_enter()
+
 # Called when the state gets activated
-func enter() -> void:
-	pass # Replace with function body.
+func enter():
+	pass
+	
+# called when the state manager wants to exit this state
+func request_exit():
+	confirm_exit()
 
 # called when the state gets deactivated
 func exit() -> void:
 	pass
 
-func update(delta) -> void:
+# called on every frame update
+func update(delta:float) -> void:
 	pass
+
+# utilities
+func get_state_machine()->StateMachine:
+	var parent = get_parent()
+	if is_instance_of(parent, StateMachine):
+		return parent
+	return null
+
+########################################################################
+## these are internal properties and methods of the state machine system
+
+# confirm that this state can enter
+func confirm_enter() -> void:
+	if _confirm_enter_callback == null or _confirm_enter_callback.is_null():
+		print(_prefix(), "Cannot confirm enter, callback is null")
+		return
+	_confirm_enter_callback.call()
+		
+
+# confirm that this state can exit
+func confirm_exit() -> void:
+	if _confirm_exit_callback == null or _confirm_exit_callback.is_null():
+		print(_prefix(), "Cannot confirm exit, callback is null")
+		return
+	_confirm_exit_callback.call()
+
+var _confirm_enter_callback = Callable()
+var _confirm_exit_callback = Callable()
+
+### helper
+func _resolve_node_paths(paths_a:Array[NodePath])->Array[Node]:
+	var ret:Array[Node] = []
+	for p in paths_a:
+		var node = get_node(p)
+		if node:
+			ret.append(node)
+	return ret

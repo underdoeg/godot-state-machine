@@ -1,0 +1,106 @@
+[gd_scene load_steps=4 format=3 uid="uid://q8s7lp6pkbb1"]
+
+[ext_resource type="Script" path="res://addons/state_machine/state_machine_ui.gd" id="1_xg6lx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5bwpi"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.701961)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e8q23"]
+draw_center = false
+border_width_bottom = 1
+border_color = Color(0.419608, 0.419608, 0.419608, 1)
+
+[node name="ui" type="PanelContainer"]
+custom_minimum_size = Vector2(240, 0)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5bwpi")
+script = ExtResource("1_xg6lx")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="title" type="Label" parent="VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.419608, 0.419608, 0.419608, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_e8q23")
+text = "State Machine Name"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="VBoxContainer" type="GridContainer" parent="VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="state_label" type="Label" parent="VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.419608, 0.419608, 0.419608, 1)
+text = "state"
+horizontal_alignment = 2
+
+[node name="state" type="Label" parent="VBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "state name"
+
+[node name="state_age_label" type="Label" parent="VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.419608, 0.419608, 0.419608, 1)
+text = "age"
+horizontal_alignment = 2
+
+[node name="state_age" type="Label" parent="VBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "120s"
+
+[node name="state_pending_label" type="Label" parent="VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.419608, 0.419608, 0.419608, 1)
+text = "pending"
+horizontal_alignment = 2
+
+[node name="state_pending" type="Label" parent="VBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "--"
+
+[node name="state_prev_label" type="Label" parent="VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.419608, 0.419608, 0.419608, 1)
+text = "previous"
+horizontal_alignment = 2
+
+[node name="state_prev" type="Label" parent="VBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "--"
+
+[node name="spacer" type="Control" parent="VBoxContainer2"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="title_buttons" type="Label" parent="VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.419608, 0.419608, 0.419608, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_e8q23")
+text = "available states"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="state_buttons" type="VBoxContainer" parent="VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2

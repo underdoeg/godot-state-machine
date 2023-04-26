@@ -1,19 +1,65 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgybkk67jrng2"]
+[gd_scene load_steps=9 format=3 uid="uid://nxa350ichkna"]
 
+[ext_resource type="Script" path="res://demo.gd" id="1_al40k"]
 [ext_resource type="Script" path="res://addons/state_machine/state_machine.gd" id="1_m2aka"]
-[ext_resource type="Script" path="res://addons/state_machine/state.gd" id="2_mfvy8"]
+[ext_resource type="Script" path="res://circle.gd" id="2_22dgt"]
+[ext_resource type="Script" path="res://addons/state_machine/state.gd" id="2_tx2m5"]
+[ext_resource type="PackedScene" uid="uid://q8s7lp6pkbb1" path="res://addons/state_machine/state_machine_ui.tscn" id="3_w6701"]
+[ext_resource type="Texture2D" uid="uid://b2dbdwbk32p6e" path="res://icon.svg" id="4_wwd41"]
+[ext_resource type="Script" path="res://line.gd" id="5_g0upc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_10nnc"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.6, 0, 0.188235, 1)
 
 [node name="demo" type="Node2D"]
+script = ExtResource("1_al40k")
 
 [node name="state_machine" type="Node" parent="."]
 script = ExtResource("1_m2aka")
 
-[node name="a" type="Node" parent="state_machine"]
-script = ExtResource("2_mfvy8")
-allow_reset = true
+[node name="nothing" type="Node" parent="state_machine"]
+script = ExtResource("2_tx2m5")
+nodes_hide = Array[NodePath]([NodePath("../../show_with_circle"), NodePath("../../sync_with_line")])
 
-[node name="b" type="Node" parent="state_machine"]
-script = ExtResource("2_mfvy8")
+[node name="circle" type="Node" parent="state_machine"]
+script = ExtResource("2_22dgt")
+nodes_show = Array[NodePath]([NodePath("../../show_with_circle")])
 
-[node name="c" type="Node" parent="state_machine"]
-script = ExtResource("2_mfvy8")
+[node name="line" type="Node" parent="state_machine"]
+script = ExtResource("5_g0upc")
+allow_reenter = true
+nodes_sync = Array[NodePath]([NodePath("../../sync_with_line")])
+
+[node name="icon" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(565, 322)
+texture = ExtResource("4_wwd41")
+
+[node name="monitor" parent="." node_paths=PackedStringArray("state_machine") instance=ExtResource("3_w6701")]
+offset_left = 15.0
+offset_top = 20.0
+offset_right = 255.0
+offset_bottom = 179.0
+state_machine = NodePath("../state_machine")
+
+[node name="show_with_circle" type="Label" parent="."]
+offset_left = 994.0
+offset_top = 18.0
+offset_right = 1141.0
+offset_bottom = 54.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_10nnc")
+text = "show with circle"
+
+[node name="sync_with_line" type="Label" parent="."]
+offset_left = 996.0
+offset_top = 65.0
+offset_right = 1143.0
+offset_bottom = 101.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_10nnc")
+text = "sync with line"
+
+[connection signal="on_state_change" from="state_machine" to="." method="_on_state_machine_on_state_change"]
