@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://q8s7lp6pkbb1"]
+[gd_scene load_steps=5 format=3 uid="uid://dm7hnfy1bj1fx"]
 
+[ext_resource type="Theme" uid="uid://cy7c3uurbshwt" path="res://addons/state_machine/state_machine_ui_theme.tres" id="1_76ukl"]
 [ext_resource type="Script" path="res://addons/state_machine/state_machine_ui.gd" id="1_xg6lx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5bwpi"]
@@ -7,7 +8,7 @@ content_margin_left = 10.0
 content_margin_top = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 10.0
-bg_color = Color(0, 0, 0, 0.701961)
+bg_color = Color(0, 0, 0, 0.843137)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -19,10 +20,11 @@ draw_center = false
 border_width_bottom = 1
 border_color = Color(0.419608, 0.419608, 0.419608, 1)
 
-[node name="ui" type="PanelContainer"]
+[node name="state_machine_ui" type="PanelContainer"]
 custom_minimum_size = Vector2(240, 0)
 offset_right = 40.0
 offset_bottom = 40.0
+theme = ExtResource("1_76ukl")
 theme_override_styles/panel = SubResource("StyleBoxFlat_5bwpi")
 script = ExtResource("1_xg6lx")
 
@@ -46,7 +48,7 @@ columns = 2
 
 [node name="state_label" type="Label" parent="VBoxContainer2/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.419608, 0.419608, 0.419608, 1)
+theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
 text = "state"
 horizontal_alignment = 2
 
@@ -57,7 +59,7 @@ text = "state name"
 
 [node name="state_age_label" type="Label" parent="VBoxContainer2/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.419608, 0.419608, 0.419608, 1)
+theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
 text = "age"
 horizontal_alignment = 2
 
@@ -68,7 +70,7 @@ text = "120s"
 
 [node name="state_pending_label" type="Label" parent="VBoxContainer2/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.419608, 0.419608, 0.419608, 1)
+theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
 text = "pending"
 horizontal_alignment = 2
 
@@ -79,7 +81,7 @@ text = "--"
 
 [node name="state_prev_label" type="Label" parent="VBoxContainer2/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.419608, 0.419608, 0.419608, 1)
+theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
 text = "previous"
 horizontal_alignment = 2
 

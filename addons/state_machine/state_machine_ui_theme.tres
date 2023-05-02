@@ -1,0 +1,46 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://cy7c3uurbshwt"]
+
+[ext_resource type="FontFile" uid="uid://bp1g6y3fia50r" path="res://addons/state_machine/Inconsolata.otf" id="1_spdos"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fwv11"]
+content_margin_left = 2.0
+content_margin_top = 4.0
+content_margin_right = 2.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0705882, 0.172549, 0.0235294, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mhhgk"]
+content_margin_left = 2.0
+content_margin_top = 4.0
+content_margin_right = 2.0
+content_margin_bottom = 4.0
+bg_color = Color(0.129412, 0.0862745, 0.0509804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y3ujp"]
+content_margin_left = 2.0
+content_margin_top = 4.0
+content_margin_right = 2.0
+content_margin_bottom = 4.0
+bg_color = Color(0.129412, 0.129412, 0.129412, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_svygg"]
+content_margin_left = 2.0
+content_margin_top = 4.0
+content_margin_right = 2.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_q68bt"]
+base_font = ExtResource("1_spdos")
+
+[resource]
+default_font = SubResource("FontVariation_q68bt")
+default_font_size = 16
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/styles/disabled = null
+Button/styles/focus = SubResource("StyleBoxFlat_fwv11")
+Button/styles/hover = SubResource("StyleBoxFlat_mhhgk")
+Button/styles/normal = SubResource("StyleBoxFlat_y3ujp")
+Button/styles/pressed = SubResource("StyleBoxFlat_svygg")
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/fonts/font = ExtResource("1_spdos")

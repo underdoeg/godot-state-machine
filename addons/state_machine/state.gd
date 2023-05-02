@@ -9,6 +9,8 @@ signal on_update(delta:float)
 # set to true if the state can be reactivated even if it is already active. So enter will get called again
 @export var allow_reenter:bool = false
 
+@export var verbose_name:String = ""
+
 ######### Auto show hide node paths
 # TODO: actually export an array of nodes and not paths, but this is buggy ATM but should be fixed in godot 4.1
 # a list of nodes that get called .show() on enter and .hide() on exit 
@@ -20,8 +22,11 @@ signal on_update(delta:float)
 # a list of nodes that get called .hide() on enter
 @export var nodes_hide:Array[NodePath] = []
 
+func name_formatted():
+	return name if verbose_name.is_empty() else verbose_name
+
 func _prefix():
-	return "[State: %s] " % self.name
+	return "[State: %s] " % name_formatted()
 
 # age of this state
 var age:float = 0

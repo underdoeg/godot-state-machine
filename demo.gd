@@ -9,6 +9,5 @@ func _ready():
 func _process(delta):
 	pass
 
-
 func _on_state_machine_on_state_change(state):
 	print("============= DEMO STATE CHANGE LISTENER: ", state.name)

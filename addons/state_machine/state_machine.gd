@@ -69,6 +69,8 @@ var _state_active:_StateHandler = null
 var _state_active_pending:_StateHandler = null
 var _state_previous:_StateHandler = null
 
+@export var verbose_name:String = ""
+@export var enable_console_print:bool = true
 # get / setter
 var state_name: String:
 	get:
@@ -76,10 +78,10 @@ var state_name: String:
 	set(value):
 		var new_state = find_child(value, false)
 		if not new_state:
-			print(_prefix(), "state not found: ", value)
+			console_print( "state not found: ", value)
 		set_state(new_state)
 		
-var state: State:
+@export var state: State:
 	get:
 		return get_state()
 	set(value):
@@ -94,15 +96,26 @@ var state_pending:State:
 		return _state_active_pending.state if _state_active_pending else null
 
 ## methods
-func _prefix():
-	return "[StateMachine: %s] " % self.name
+func name_formatted():
+	return name if verbose_name.is_empty() else verbose_name
 
+func _prefix():
+	return "[StateMachine: %s] " % name_formatted()
+
+func console_print(msg1, msg2=null):
+	if not enable_console_print:
+		return
+	if msg2:
+		print(_prefix(), msg1, msg2)
+	else:
+		print(_prefix(), msg1)
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
 
 func _process(delta):
-	
+
 	# check for pending state changes
 	if _state_active_pending:
 		if not _state_active_pending.enter_requested:
@@ -119,9 +132,9 @@ func _process(delta):
 			# TODO: exit the previous state only when the new state is ready? for now it get exited immediately after confirming
 #			if _state_previous:
 #				_state_previous.exit()
-#				print(_prefix(), "state exited: ", _state_previous.state.name)
+#				console_print( "state exited: ", _state_previous.state.name)
 			_state_active.enter()
-			print(_prefix(), "state entered: ", state_name)
+			console_print( "state entered: ", state_name)
 			_state_active_pending = null
 			
 			# emit state change
@@ -134,23 +147,23 @@ func _process(delta):
 
 func set_state(new_state:State) -> bool:
 	if not new_state:
-		print(_prefix(), "set state: new state is null -> abort")
+		console_print( "set state: new state is null -> abort")
 		return false
 	
 	var state_machine := new_state.get_state_machine()
 	if state_machine != self:
-		print(_prefix(), "set state: state belongs to a different state machine: ", state_machine.name if state_machine else "null")
+		console_print( "set state: state belongs to a different state machine: ", state_machine.name if state_machine else "null")
 		return false
 	
-	print(_prefix(), "request state: ", new_state.name)
+	console_print( "request state: ", new_state.name)
 	
 	if _state_active_pending:
-		print(_prefix(), "warning - another state change request has not yet completed, will abort request")
+		console_print( "warning - another state change request has not yet completed, will abort request")
 		return false
 	
 	if get_state() == new_state:
 		if not new_state.allow_reenter:
-			print(_prefix(), "state is already active and does not allow reenter: ", new_state.name)
+			console_print( "state is already active and does not allow reenter: ", new_state.name)
 			return false
 		# just call enter again and reset the age
 		_state_active.enter()

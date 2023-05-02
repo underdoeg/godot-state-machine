@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://addons/state_machine/state_machine.gd" id="1_m2aka"]
 [ext_resource type="Script" path="res://circle.gd" id="2_22dgt"]
 [ext_resource type="Script" path="res://addons/state_machine/state.gd" id="2_tx2m5"]
-[ext_resource type="PackedScene" uid="uid://q8s7lp6pkbb1" path="res://addons/state_machine/state_machine_ui.tscn" id="3_w6701"]
+[ext_resource type="PackedScene" uid="uid://dm7hnfy1bj1fx" path="res://addons/state_machine/state_machine_ui.tscn" id="3_w6701"]
 [ext_resource type="Texture2D" uid="uid://b2dbdwbk32p6e" path="res://icon.svg" id="4_wwd41"]
 [ext_resource type="Script" path="res://line.gd" id="5_g0upc"]
 
