@@ -3,6 +3,7 @@ class_name StateMachine
 
 extends Node
 
+signal on_state_change_request(state:State)
 signal on_state_change(state:State)
 
 # helper class to store active state
@@ -117,8 +118,15 @@ func _ready():
 func _process(delta):
 
 	# check for pending state changes
+	if not handle_state_active_pending():
+		# update existing state
+		if _state_active:
+			_state_active.update(delta)
+
+func handle_state_active_pending():
 	if _state_active_pending:
 		if not _state_active_pending.enter_requested:
+			on_state_change_request.emit(_state_active_pending.state)
 			_state_active_pending.request_enter()
 	
 		if _state_active:
@@ -139,11 +147,8 @@ func _process(delta):
 			
 			# emit state change
 			on_state_change.emit(state)
-			
-	else:
-		# update existing state
-		if _state_active:
-			_state_active.update(delta)
+		return true
+	return false
 
 func set_state(new_state:State) -> bool:
 	if not new_state:
@@ -170,6 +175,8 @@ func set_state(new_state:State) -> bool:
 		return true
 		
 	_state_active_pending = _StateHandler.new(new_state)
+	# handle it one, state change might be immediate, otherwise  handle in next process
+	handle_state_active_pending()
 	return true
 	
 func get_state()->State:

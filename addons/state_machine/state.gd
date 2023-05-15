@@ -31,6 +31,13 @@ func _prefix():
 # age of this state
 var age:float = 0
 
+# activate this state in the state manager
+func activate():
+	var state_machine = get_state_machine()
+	if not state_machine:
+		return
+	state_machine.state = self	
+
 # called when the state manager wants to enter this state
 func request_enter():
 	confirm_enter()
@@ -56,6 +63,7 @@ func get_state_machine()->StateMachine:
 	var parent = get_parent()
 	if is_instance_of(parent, StateMachine):
 		return parent
+	print(_prefix(), "Cannot retrieve associated state machine")
 	return null
 
 ########################################################################
