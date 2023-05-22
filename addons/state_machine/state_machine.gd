@@ -87,6 +87,10 @@ var state_name: String:
 		return get_state()
 	set(value):
 		set_state(value)
+		
+@export var state_age: float:
+	get:
+		return state.age if state else 0
 
 var state_previous:State:
 	get:
