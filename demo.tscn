@@ -62,4 +62,4 @@ offset_bottom = 101.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_10nnc")
 text = "sync with line"
 
-[connection signal="on_state_change" from="state_machine" to="." method="_on_state_machine_on_state_change"]
+[connection signal="state_changed" from="state_machine" to="." method="_on_state_machine_state_changed"]
