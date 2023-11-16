@@ -1,13 +1,17 @@
 extends PanelContainer
 
+var _is_ready = false
+
 @export var state_machine:StateMachine:
 	get:
 		return state_machine
 	set(value):
 		state_machine = value 
+		if _is_ready:
+			_setup_state_machine()
 
 func _ready():
-	
+	_is_ready = true
 	if state_machine:
 		_setup_state_machine()
 
